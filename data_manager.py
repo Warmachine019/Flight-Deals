@@ -1,8 +1,10 @@
 import requests
 import os
-from pprint import pprint
+from dotenv import load_dotenv
 
-SHEETY_ENDPOINT = "SHEEETY_ENDPOINT"
+load_dotenv()
+
+SHEETY_ENDPOINT = os.environ["SHEETY_END_POINT"]
 
 
 class DataManager:
