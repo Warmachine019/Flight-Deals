@@ -1,5 +1,6 @@
 import requests
 import os
+from requests.auth import HTTPBasicAuth
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -28,3 +29,4 @@ class DataManager:
                 url=f"{SHEETY_ENDPOINT}/{city['id']}",
                 json=new_data
             )
+            print(response.text)
