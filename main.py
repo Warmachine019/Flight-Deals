@@ -62,7 +62,7 @@ for destination in sheet_data:
                       f"with {cheapest_flight.stops} stop(s) "\
                       f"departing on {cheapest_flight.out_date} and returning on {cheapest_flight.return_date}."
 
-        print(f"Check your email. Lower price flight found to {destination['city']}!")
+        print(f"Check your email, Lower price flight found to {destination['city']}!")
         notification_manager.send_emails(email_list=customer_email_list, email_body=message)
 
 
