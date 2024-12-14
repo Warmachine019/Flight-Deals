@@ -5,7 +5,7 @@ from twilio.rest import Client
 class NotificationManager:
 
     def __init__(self):
-        self.smtp_address = os.environ["EMAIL_PROVIDER_SMTP_ADDRESS"]
+        self.smtp_address = os.environ["SMTP_ADDRESS"]
         self.email = os.environ["MY_EMAIL"]
         self.email_password = os.environ["MY_EMAIL_PASSWORD"]
         self.twilio_virtual_number = os.environ["TWILIO_VIRTUAL_NUMBER"]
