@@ -15,7 +15,6 @@ for row in sheet_data:
     if row["iataCode"] == "":
         row["iataCode"] = flight_search.get_destination_code(row["city"])
         time.sleep(2)
-print(f"sheet_data:\n {sheet_data}")
 
 data_manager.destination_data = sheet_data
 data_manager.update_destination_codes()
