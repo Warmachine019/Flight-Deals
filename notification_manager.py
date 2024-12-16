@@ -7,7 +7,7 @@ class NotificationManager:
     def __init__(self):
         self.smtp_address = os.environ["SMTP_ADDRESS"]
         self.email = os.environ["MY_EMAIL"]
-        self.email_password = os.environ["MY_EMAIL_PASSWORD"]
+        self.email_password = os.environ["EMAIL_PASSWORD"]
         self.twilio_virtual_number = os.environ["TWILIO_VIRTUAL_NUMBER"]
         self.twilio_verified_number = os.environ["TWILIO_VERIFIED_NUMBER"]
         self.whatsapp_number = os.environ["TWILIO_WHATSAPP_NUMBER"]
