@@ -16,7 +16,6 @@ for row in sheet_data:
         row["iataCode"] = flight_search.get_destination_code(row["city"])
         time.sleep(2)
 
-
 data_manager.destination_data = sheet_data
 data_manager.update_destination_codes()
 
