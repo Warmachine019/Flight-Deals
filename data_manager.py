@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class DataManager:
+    
     def __init__(self):
 
         self._user = os.environ["SHEETY_USERNAME"]
