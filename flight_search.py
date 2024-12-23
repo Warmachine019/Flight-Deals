@@ -1,5 +1,4 @@
 import requests
-from datetime import datetime
 import os
 from dotenv import load_dotenv
 
@@ -9,32 +8,30 @@ IATA_ENDPOINT = "https://test.api.amadeus.com/v1/reference-data/locations/cities
 FLIGHT_ENDPOINT = "https://test.api.amadeus.com/v2/shopping/flight-offers"
 TOKEN_ENDPOINT = "https://test.api.amadeus.com/v1/security/oauth2/token"
 
+
 class FlightSearch:
-
     def __init__(self):
-        self._api_key = os.environ["AMADEUS_API_KEY"]
-        self._api_secret = os.environ["AMADEUS_SECRET"]
-        self._token = self._get_new_token()
+        self.api_key = os.environ["AMADEUS_API_KEY"],
+        self.api_secret = os.environ["AMADEUS_API_SECRET"],
+        self.token = self.get_new_token()
 
-    def _get_new_token(self):
+    def get_new_token(self):
         header = {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
         body = {
             'grant_type': 'client_credentials',
-            'client_id': self._api_key,
-            'client_secret': self._api_secret
+            'client_id': self.api_key,
+            'client_secret': self.api_secret
         }
         response = requests.post(url=TOKEN_ENDPOINT, headers=header, data=body)
-
         print(f"Your token is {response.json()['access_token']}")
         print(f"Your token expires in {response.json()['expires_in']} seconds")
         return response.json()['access_token']
 
     def get_destination_code(self, city_name):
-
-        print(f"Using this token to get destination {self._token}")
-        headers = {"Authorization": f"Bearer {self._token}"}
+        print(f"Using this token to find your destination: {self.token}")
+        headers = {"Authorization": f"Bearer {self.token}"}
         query = {
             "keyword": city_name,
             "max": "2",
@@ -54,18 +51,19 @@ class FlightSearch:
         except KeyError:
             print(f"KeyError: No airport code found for {city_name}.")
             return "Not Found"
-
         return code
 
-    def check_flights(self, origin_city_code, destination_city_code, from_time, to_time, is_direct=True):
-        headers = {"Authorization": f"Bearer {self._token}"}
+    def check_flights(self, origin_city_code, destination_city_code, from_time, to_time):
+
+        # print(f"Using this token to check_flights() {self._token}")
+        headers = {"Authorization": f"Bearer {self.token}"}
         query = {
             "originLocationCode": origin_city_code,
             "destinationLocationCode": destination_city_code,
             "departureDate": from_time.strftime("%Y-%m-%d"),
             "returnDate": to_time.strftime("%Y-%m-%d"),
             "adults": 1,
-            "nonStop": "true" if is_direct else "false",
+            "nonStop": "true",
             "currencyCode": "GBP",
             "max": "10",
         }
@@ -84,5 +82,4 @@ class FlightSearch:
                   "-reference")
             print("Response body:", response.text)
             return None
-
         return response.json()
